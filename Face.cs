@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Lab6
+﻿namespace Lab6
 {
     public class Face
     {

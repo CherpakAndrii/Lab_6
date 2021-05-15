@@ -6,7 +6,7 @@ namespace Lab6
     {
         public bool IsParent = false;
         public int Size = 0;
-        private int _maxSize = 10;
+        private const int MaxSize = 10;
         public double xMax, xMin, yMax, yMin, zMax, zMin;
         public List<Face> Faces = new();
         public RTree Child1, Child2;
@@ -40,7 +40,7 @@ namespace Lab6
                 else
                 {
                     Faces.Add(f);
-                    if (Size > _maxSize) Divide();
+                    if (Size > MaxSize) Divide();
                 }
             }
         }
@@ -85,10 +85,10 @@ namespace Lab6
             Child2.Add(Faces[Size-1]);
             Faces.RemoveAt(Size-1);
             Faces.RemoveAt(0);
-            foreach (Face Face in Faces)
+            foreach (Face face in Faces)
             {
-                if (OptimalInclude(Child1, Child2, Face)) Child1.Add(Face);
-                else Child2.Add(Face);
+                if (OptimalInclude(Child1, Child2, face)) Child1.Add(face);
+                else Child2.Add(face);
             }
         }
         public static bool OptimalInclude(RTree n1, RTree n2, Face f)
@@ -110,14 +110,14 @@ namespace Lab6
             double newZMin2 = Min(n2.zMax, f.zMin);
             double v2 = (n1.xMax - n1.xMin) * (n1.yMax - n1.yMin) * (n1.zMax - n1.zMin) + (newXMax2 - newXMin2) * (newYMax2 - newYMin2) * (newZMax2 - newZMin2);
             //in which case the volume will be smaller?
-            return v1 != v2 ? v1 < v2 : n1.Size < n2.Size;
+            return v1 == v2 ? n1.Size < n2.Size : v1 < v2;
         }
 
-        public static double Max(double d1, double d2)
+        private static double Max(double d1, double d2)
         {
             return d1 > d2 ? d1 : d2;
         }
-        public static double Min(double d1, double d2)
+        private static double Min(double d1, double d2)
         {
             return d1 < d2 ? d1 : d2;
         }
