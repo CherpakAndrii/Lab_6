@@ -30,7 +30,7 @@ namespace Lab6
                             int p1 = int.Parse(items[1].Split('/', StringSplitOptions.RemoveEmptyEntries)[0]);
                             int p2 = int.Parse(items[2].Split('/', StringSplitOptions.RemoveEmptyEntries)[0]);
                             int p3 = int.Parse(items[3].Split('/', StringSplitOptions.RemoveEmptyEntries)[0]);
-                            tree.Add(new Face(points[p1], points[p2], points[p3]));
+                            tree.Add(new Face(points[p1-1], points[p2-1], points[p3-1]));
                         }
                     }
                     catch (IndexOutOfRangeException)
