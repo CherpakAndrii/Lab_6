@@ -6,7 +6,7 @@ namespace Lab6
     {
         public bool IsParent = false;
         public int Size = 0;
-        private const int MaxSize = 10;
+        private const int MaxSize = 25;
         public double xMax, xMin, yMax, yMin, zMax, zMin;
         public List<Face> Faces = new();
         public RTree Child1, Child2;

@@ -24,7 +24,7 @@ namespace Lab6
                 while (!sr.EndOfStream)
                 {
                     string line = sr.ReadLine();
-                    if (line == null) continue;
+                    if (string.IsNullOrEmpty(line)) continue;
                     lines.Add(line);
                 }
             }
@@ -34,21 +34,28 @@ namespace Lab6
             Read();
             using (StreamWriter sw = new StreamWriter(newfilename, false, Encoding.Default))
             {
-                foreach (string line in lines){
+                foreach (string line in lines)
+                {
+                    string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    try 
                     {
-                        string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                        if (items[0] == "vn"||items[0] == "v")
+                        if (items[0] == "vn" || items[0] == "v")
                         {
-                            sw.Write(items[0]+" ");
-                            sw.Write(items[1]+" ");
-                            sw.Write(items[3]);
-                            sw.WriteLine(Convert.ToString(double.Parse(items[3].Replace(".", ",")) * -1).Replace(",", ".")+" ");
+                            sw.Write(items[0] + " ");
+                            sw.Write(items[1] + " ");
+                            sw.Write(items[3] + " ");
+                            sw.WriteLine(Convert.ToString(double.Parse(items[2].Replace(".", ",")) * -1)
+                                .Replace(",", "."));
                         }
                         else sw.WriteLine(line);
                     }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.WriteLine("WTF??: "+line);
+                        Environment.Exit(2);
+                    }
                 }
             }
-
             filename = newfilename;
         }
         public void RotateXminus90()
@@ -57,21 +64,19 @@ namespace Lab6
             Read();
             using (StreamWriter sw = new StreamWriter(newfilename, false, Encoding.Default))
             {
-                foreach (string line in lines){
+                foreach (string line in lines)
+                {
+                    string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    if (items[0] == "vn"||items[0] == "v")
                     {
-                        string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                        if (items[0] == "vn"||items[0] == "v")
-                        {
-                            sw.Write(items[0]+" ");
-                            sw.Write(items[1]);
-                            sw.Write(Convert.ToString(double.Parse(items[3].Replace(".", ",")) * -1).Replace(",", ".")+" ");
-                            sw.WriteLine(items[2]);
-                        }
-                        else sw.WriteLine(line);
+                        sw.Write(items[0] + " ");
+                        sw.Write(items[1] + " ");
+                        sw.Write(Convert.ToString(double.Parse(items[3].Replace(".", ",")) * -1).Replace(",", ".")+" ");
+                        sw.WriteLine(items[2]);
                     }
+                    else sw.WriteLine(line);
                 }
             }
-
             filename = newfilename;
         }
         public void RotateYplus90()
@@ -79,11 +84,12 @@ namespace Lab6
             Read();
             using (StreamWriter sw = new StreamWriter(newfilename, false, Encoding.Default))
             {
-                foreach (string line in lines){
+                foreach (string line in lines)
+                {
                     string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
                     if (items[0] == "vn"||items[0] == "v")
                     {
-                        sw.Write(items[0]+" ");
+                        sw.Write(items[0]+ " ");
                         sw.Write(Convert.ToString(double.Parse(items[3].Replace(".", ",")) * -1).Replace(",", ".")+" ");
                         sw.Write(items[2]+" ");
                         sw.WriteLine(items[1]);
@@ -97,19 +103,18 @@ namespace Lab6
         {
             Read();
             using (StreamWriter sw = new StreamWriter(newfilename, false, Encoding.Default))
-            {
-                foreach (string line in lines){
+            { 
+                foreach (string line in lines)
+                {
+                    string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    if (items[0] == "vn"||items[0] == "v")
                     {
-                        string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                        if (items[0] == "vn"||items[0] == "v")
-                        {
-                            sw.Write(items[0]+" ");
-                            sw.Write(items[3]+" ");
-                            sw.Write(items[2]+" ");
-                            sw.WriteLine(Convert.ToString(double.Parse(items[3].Replace(".", ",")) * -1).Replace(",", "."));
-                        }
-                        else sw.WriteLine(line);
+                        sw.Write(items[0]+" ");
+                        sw.Write(items[3]+" ");
+                        sw.Write(items[2]+" ");
+                        sw.WriteLine(Convert.ToString(double.Parse(items[3].Replace(".", ",")) * -1).Replace(",", "."));
                     }
+                    else sw.WriteLine(line);
                 }
             }
 
@@ -120,21 +125,19 @@ namespace Lab6
             Read();
             using (StreamWriter sw = new StreamWriter(newfilename, false, Encoding.Default))
             {
-                foreach (string line in lines){
+                foreach (string line in lines)
+                {
+                    string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    if (items[0] == "vn"||items[0] == "v")
                     {
-                        string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                        if (items[0] == "vn"||items[0] == "v")
-                        {
-                            sw.Write(items[0]+" ");
-                            sw.Write(items[2]+" ");
-                            sw.Write(Convert.ToString(double.Parse(items[1].Replace(".", ",")) * -1).Replace(",", ".")+" ");
-                            sw.WriteLine(items[3]);
-                        }
-                        else sw.WriteLine(line);
+                        sw.Write(items[0]+" ");
+                        sw.Write(items[2]+" ");
+                        sw.Write(Convert.ToString(double.Parse(items[1].Replace(".", ",")) * -1).Replace(",", ".")+" ");
+                        sw.WriteLine(items[3]);
                     }
+                    else sw.WriteLine(line);
                 }
             }
-
             filename = newfilename;
         }
         public void RotateZminus90()
@@ -142,21 +145,19 @@ namespace Lab6
             Read();
             using (StreamWriter sw = new StreamWriter(newfilename, false, Encoding.Default))
             {
-                foreach (string line in lines){
+                foreach (string line in lines)
+                {
+                    string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                    if (items[0] == "vn"||items[0] == "v")
                     {
-                        string[] items = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                        if (items[0] == "vn"||items[0] == "v")
-                        {
-                            sw.Write(items[0]+" ");
-                            sw.Write(Convert.ToString(double.Parse(items[2].Replace(".", ",")) * -1).Replace(",", ".")+" ");
-                            sw.Write(items[1]);
-                            sw.WriteLine(items[3]);
-                        }
-                        else sw.WriteLine(line);
+                        sw.Write(items[0]+" ");
+                        sw.Write(Convert.ToString(double.Parse(items[2].Replace(".", ",")) * -1).Replace(",", ".")+" ");
+                        sw.Write(items[1] + " ");
+                        sw.WriteLine(items[3]);
                     }
+                    else sw.WriteLine(line);
                 }
             }
-
             filename = newfilename;
         }
     }
