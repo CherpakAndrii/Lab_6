@@ -18,7 +18,7 @@ namespace Lab6
                     if (str == null) continue;
                     try
                     {
-                        string[] items = str.Split(";");
+                        string[] items = str.Split(" ");
                         if (items[0] == "v")
                         {
                             points.Add(
