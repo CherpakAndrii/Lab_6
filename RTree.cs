@@ -48,20 +48,14 @@ namespace Lab6
         {
             if (f1.xMax > f2.xMax) return 1;
             if (f2.xMin < f1.xMin) return -1;
-            if (f1.yMax > f2.yMax) return 1;
-            if (f2.yMin < f1.yMin) return -1;
-            if (f1.zMax > f2.zMax) return 1;
-            return -1;
+            return CompareByCoordinateY(f1, f2);
         }
 
         private static int CompareByCoordinateY(Face f1, Face f2)
         {
             if (f1.yMax > f2.yMax) return 1;
             if (f2.yMin < f1.yMin) return -1;
-            if (f1.xMax > f2.xMax) return 1;
-            if (f2.xMin < f1.xMin) return -1;
-            if (f1.zMax > f2.zMax) return 1;
-            return -1;
+            return CompareByCoordinateZ(f1, f2);
         }
         private static int CompareByCoordinateZ(Face f1, Face f2)
         {
