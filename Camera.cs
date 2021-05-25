@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 
 namespace Lab6
 {
@@ -47,12 +46,10 @@ namespace Lab6
             List<Face> faceList = new();
             FindFaces(p1, p2, tree, ref faceList);
             List<Face> IntersectedFaceList = new();
-            foreach (Face face in faceList) if (Intersection(p1, p2, face)) IntersectedFaceList.Add(face);
+            foreach (Face face in faceList) if (CheckForIntersections.Intersection(p1, p2, face)) IntersectedFaceList.Add(face);
             Face nearest = GetNearestFromList(p1, IntersectedFaceList);
             return nearest;
         }
-        private static bool Intersection(Point p1, Point p2, RTree tree) {return true;}// заглушечка. Тут ф-я Зеленського.
-        private static bool Intersection(Point p1, Point p2, Face f) {return true;}// заглушечка. Тут ф-я Зеленського.
         private static Face GetNearestFromList(Point p, List<Face> faces)
         {
             Face nearest = null;
@@ -70,7 +67,7 @@ namespace Lab6
         }
         private static void FindFaces(Point p1, Point p2, RTree tree, ref List<Face> faceList)
         {
-            if (! /*Zee.*/Intersection(p1, p2, tree)) return;
+            if (!CheckForIntersections.Intersection(p1, p2, tree)) return;
             if (!tree.IsParent) foreach (Face f in tree.Faces) faceList.Add(f);
             else
             {
