@@ -19,9 +19,7 @@
             zMax = _max(v1.Z, v2.Z, v3.Z);
             center = new Point((v1.X + v2.X + v3.X) / 3, (v1.Y + v2.Y + v3.Y) / 3, (v1.Z + v2.Z + v3.Z) / 3);
             NormalVector = new Vector(p1, p2, p3);
-            //a lot of attributes and methods will be added later, such as normal vector...
         }
-
         private static double _max(double d1, double d2, double d3)
         {
             if (d1 >= d2 && d1 >= d3) return d1;
