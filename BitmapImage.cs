@@ -17,7 +17,7 @@ namespace Lab6
             path = Environment.CurrentDirectory;
         }
 
-        public void CreateImage(byte[,][] bytesArray, int width, int height)
+        public void CreateImage(byte[, ,] bytesArray, int width, int height)
         {
             using (BinaryWriter binaryWriter = new BinaryWriter(File.Open(path, FileMode.Create)))
             {
@@ -52,15 +52,18 @@ namespace Lab6
                     {
                         for (int k = 0; k < 3; k++)
                         {
-                            binaryWriter.Write(bytesArray[i, j][k]);
+                            binaryWriter.Write(bytesArray[i, j, k]);
                         }
                     }
 
-                    int zeroBytes = (3 * width) % 4;
-                    while (zeroBytes != 0)
+                    int numberOfNull = 0;
+                    if (width * 3 % 4 != 0)
                     {
-                        binaryWriter.Write((byte)0);
-                        zeroBytes++;
+                        numberOfNull = 4 - width * 3 % 4;
+                        for (int j = 0; j < numberOfNull; j++)
+                        {
+                            binaryWriter.Write((byte) 0);
+                        }
                     }
                 }
             }
