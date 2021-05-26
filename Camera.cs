@@ -8,6 +8,7 @@ namespace Lab6
         private Point Center, Focus;
         private int height, width;
         public byte[][][] image;
+        private double pixelsize = 0.002;
 
         public Camera(Point center, int h, int w)
         {
@@ -15,12 +16,13 @@ namespace Lab6
             height = h;
             width = w;
             image = new byte[height][][];
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < height; i++)
             {
                 image[i] = new byte[width][];
-                for (int j = 0; j < 100; j++)
+                for (int j = 0; j < width; j++)
                 {
-                    image[i][j] = new[] {(byte)0, (byte)0, (byte)0};
+                    image[i][j] = new byte[3];
+                    for (int k = 0; k < 3; k++) image[i][j][k] = 0;
                 }
             }
             Focus = new Point(Center.X, Center.Y, Center.Z * 7 / 8);
@@ -31,12 +33,15 @@ namespace Lab6
             {
                 for (int j = 0; j < width; j++)
                 {
-                    Point pixel = new Point(Center.X + width / 2 - j, Center.Y - height / 2 + j, 2);
+                    Point pixel = new Point(Center.X + pixelsize*(width / 2 - j), Center.Y - pixelsize*(height / 2 + j), 2);
                     Face nearest = GetNearestFace(Focus, pixel, tree);
                     if (nearest == null) continue;
-                    Light lightPoint = new Light(100, 100, 100);
+                    Light lightPoint = new Light(1000, 1000, 1000);
                     double coef = lightPoint.GetLightCoef(nearest, tree);
-                    image[i][j] = new[]{(byte)(lightPoint.Red*coef), (byte)(lightPoint.Red*coef), (byte)(lightPoint.Red*coef)};
+                    image[i][j][0] = (byte)
+                        (lightPoint.Red * coef);
+                    image[i][j][1] = (byte)(lightPoint.Green * coef);
+                    image[i][j][2] = (byte)(lightPoint.Blue * coef);
                 }
             }
             return image;
