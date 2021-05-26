@@ -14,7 +14,7 @@ namespace Lab6
             Center = center;
             height = h;
             width = w;
-            byte[][][] image = new byte[height][][];
+            image = new byte[height][][];
             for (int i = 0; i < 100; i++)
             {
                 image[i] = new byte[width][];
