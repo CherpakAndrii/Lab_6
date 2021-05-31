@@ -14,7 +14,7 @@ namespace Lab6
             this.path = path;
         }
 
-        public void CreateImage(byte[][][] bytesArray, int width, int height)
+        public void CreateImage(byte[][][] bytesArray)
         {
             int width = bytesArray[0].Length;
             int heigth = bytesArray.Length;
