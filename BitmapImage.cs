@@ -5,27 +5,26 @@ namespace Lab6
 {
     class BitmapImage
     {
-        private string path;
+        private string path = Path.Combine(Environment.CurrentDirectory, "image.bmp");
+
+        public BitmapImage() { }
 
         public BitmapImage(string path)
         {
             this.path = path;
         }
 
-        public BitmapImage()
+        public void CreateImage(byte[][][] bytesArray, int width, int height)
         {
-            path = Environment.CurrentDirectory;
-        }
-
-        public void CreateImage(byte[, ,] bytesArray, int width, int height)
-        {
+            int width = bytesArray[0].Length;
+            int heigth = bytesArray.Length;
             using (BinaryWriter binaryWriter = new BinaryWriter(File.Open(path, FileMode.Create)))
             {
                 //BITMAPFILEHEADER
 
                 binaryWriter.Write("B");
                 binaryWriter.Write("M");
-                binaryWriter.Write((UInt32) width * height + 54); // 54 - header value in bytes
+                binaryWriter.Write((UInt32) 3 * (width * height) + 54); // 54 - header value in bytes
                 binaryWriter.Write((UInt16) 0);
                 binaryWriter.Write((UInt16) 0);
                 binaryWriter.Write((UInt32) 54); // header value
@@ -46,24 +45,18 @@ namespace Lab6
 
                 //Data
 
+                byte[] zeroBytes = new byte[(4 - 3*width % 4) % 4];
+                for (int ctr = 0; ctr < zeroBytes.Length; ctr++) zeroBytes[ctr] = 0;
+
                 for (int i = 0; i < height; i++)
                 {
                     for (int j = 0; j < width; j++)
                     {
-                        for (int k = 0; k < 3; k++)
-                        {
-                            binaryWriter.Write(bytesArray[i, j, k]);
-                        }
+                        binaryWriter.Write(bytesArray[i][j]);
                     }
-
-                    int numberOfNull = 0;
-                    if (width * 3 % 4 != 0)
+                    if (zeroBytes.Length != 0)
                     {
-                        numberOfNull = 4 - width * 3 % 4;
-                        for (int j = 0; j < numberOfNull; j++)
-                        {
-                            binaryWriter.Write((byte) 0);
-                        }
+                        binaryWriter.Write(zeroBytes);
                     }
                 }
             }
