@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Lab6
 {
@@ -8,7 +9,7 @@ namespace Lab6
         static void Main()
         {
             RTree tree = RTreeFactory.FillRTree("test.obj");
-            Camera cam = new Camera(new Point(0, 0, 2), 200, 200);
+            Camera cam = new Camera(new Point(0, 0, 2), 400, 200);
             Byte[][][] image = cam.GetImage(tree);  // тут я створюю матрицю пікселів та заповнюю її
             // Picture.ToFile(image);   // Макс, це твоє. Очевидно, виводимо в файл
             DeleteThisShit(image);
